@@ -9,6 +9,9 @@
 import { Component, Vue } from "vue-property-decorator";
 import AppFilmForm from "../components/AppFilmForm.vue";
 import AppFilmList from "../components/AppFilmList.vue";
+import { FilmsActions } from "../store/films/actions";
+import { FilmsMutations } from "../store/films/mutations";
+
 @Component({
   components: {
     AppFilmForm,
@@ -16,16 +19,23 @@ import AppFilmList from "../components/AppFilmList.vue";
   },
 })
 export default class Home extends Vue {
-  public filmList: string[] = [];
-
   /**
    *
    */
   constructor() {
     super();
   }
+
+  get filmList(): string[] {
+    return this.$store.getters.getList;
+  }
+
   public addFilm(film: string): void {
-    this.filmList.push(film);
+    this.$store.commit(FilmsMutations.ADD_FILM, film);
+  }
+
+  mounted(): void {
+    this.$store.dispatch(FilmsActions.RETRIEVE_FILMS_FROM_API);
   }
 }
 </script>

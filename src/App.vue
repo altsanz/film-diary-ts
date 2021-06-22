@@ -4,10 +4,25 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <div class="header"><h1>Film Diary</h1></div>
+    <div class="header">
+      <h1><TheHeader></TheHeader></h1>
+    </div>
     <router-view />
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import TheHeader from "@/components/TheHeader.vue";
+
+@Component({
+  name: "App",
+  components: {
+    TheHeader,
+  },
+})
+export default class App extends Vue {}
+</script>
 
 <style>
 #app {
